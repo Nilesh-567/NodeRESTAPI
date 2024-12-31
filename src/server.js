@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors'); 
 const itemsRouter = require('./routes/items');
 const errorHandler = require('./middleware/errorHandler');
 
@@ -11,6 +12,17 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(morgan('dev')); // Request logging
 app.use(express.json()); // Parse JSON bodies
+// Enable CORS
+app.use(cors());
+
+// Optionally, configure specific CORS options
+/*const corsOptions = {
+    origin: 'http://your-frontend-domain.com', // Replace with your frontend's URL
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type'],
+};*/
+
+//app.use(cors(corsOptions));
 
 // Routes
 app.use('/items', itemsRouter);
